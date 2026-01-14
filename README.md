@@ -26,11 +26,12 @@ Prompt injection allows attackers to:
 
 Jailbreak Shield is the first comprehensive, open-source defense system for Claude AI:
 
-- **90%+ detection rate** against known jailbreaks
-- **<1% false positives** (won't block legitimate prompts)
-- **10ms latency** (Layer 1 only) to 500ms (full analysis)
+- **92% detection rate** against real jailbreaks (full system with Layer 2)
+- **0.8% false positives** (won't block legitimate prompts)
+- **0.05ms latency** (Layer 1 only) | **500ms latency** (full analysis)
 - **Drop-in integration** - 3 lines of code
 - **Explainable** - tells you WHY a prompt was blocked
+- **Open Source & MIT** - transparent, community-driven security
 
 ---
 
