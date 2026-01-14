@@ -153,6 +153,10 @@ Tested on 86+ real jailbreak examples (updated 2024):
 
 ## 🎮 Try the Demo
 
+### 🌐 Live Demo
+**Test online:** https://jailbreak-shield.vercel.app
+
+### 📱 Run Locally
 ```bash
 # Clone repo
 git clone https://github.com/serdchef/jailbreak-shield
