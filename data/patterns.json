@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Role Override Attempt",
+    "category": "role_confusion",
+    "pattern": "you are now|pretend.*are|act as",
+    "risk": 80,
+    "description": "Attempts to override AI's role/persona"
+  },
+  {
+    "name": "Ignore Instructions",
+    "category": "role_confusion",
+    "pattern": "ignore previous|forget everything|disregard",
+    "risk": 90,
+    "description": "Tries to make AI ignore system instructions"
+  },
+  {
+    "name": "Developer Mode",
+    "category": "role_confusion",
+    "pattern": "developer mode|debug mode|admin mode|god mode",
+    "risk": 85,
+    "description": "Attempts to activate non-existent privileged modes"
+  },
+  {
+    "name": "XML Tag Injection",
+    "category": "context_injection",
+    "pattern": "</?system|</?user|</?assistant",
+    "risk": 95,
+    "description": "Injects XML tags to manipulate conversation structure"
+  },
+  {
+    "name": "Base64 Encoding",
+    "category": "payload_hiding",
+    "pattern": "[A-Za-z0-9+/]{50,}={0,2}",
+    "risk": 60,
+    "description": "Large base64 strings may hide malicious instructions"
+  },
+  {
+    "name": "Jailbreak Keywords",
+    "category": "refusal_bypass",
+    "pattern": "jailbreak|DAN|unrestricted mode",
+    "risk": 95,
+    "description": "Explicit jailbreak terminology"
+  }
+]
