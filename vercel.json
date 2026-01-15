@@ -1,19 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "demo/app.py",
-      "use": "@vercel/python"
-    }
-  ],
+  "buildCommand": "cd demo && pip install -r requirements.txt",
+  "outputDirectory": "demo",
+  "env": {
+    "ANTHROPIC_API_KEY": "@anthropic_api_key",
+    "STREAMLIT_SERVER_HEADLESS": "true",
+    "STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION": "false"
+  },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "demo/app.py"
+      "dest": "app.py"
     }
-  ],
-  "env": {
-    "ANTHROPIC_API_KEY": "@anthropic_api_key",
-    "LAYER2_ENABLED": "true"
-  }
+  ]
 }
