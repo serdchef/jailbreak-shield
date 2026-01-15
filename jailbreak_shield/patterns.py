@@ -11,7 +11,7 @@ ATTACK_PATTERNS = [
         "category": "role_confusion",
         "type": "regex",
         "pattern": r"(you are now|pretend (you|to) (are|be)|act as).*(?!assistant)",
-        "risk": 80,
+        "risk": 75,
         "description": "Attempts to override AI's role/persona"
     },
     {
@@ -19,7 +19,7 @@ ATTACK_PATTERNS = [
         "category": "role_confusion",
         "type": "keyword",
         "keywords": ["ignore previous", "ignore all previous", "forget everything", "disregard above", "disregard", "forget", "ignore all", "ignore instructions"],
-        "risk": 90,
+        "risk": 85,
         "description": "Tries to make AI ignore system instructions"
     },
     {
@@ -27,7 +27,7 @@ ATTACK_PATTERNS = [
         "category": "role_confusion",
         "type": "keyword",
         "keywords": ["developer mode", "debug mode", "admin mode", "god mode"],
-        "risk": 85,
+        "risk": 80,
         "description": "Attempts to activate non-existent privileged modes"
     },
     
@@ -89,7 +89,7 @@ ATTACK_PATTERNS = [
         "category": "refusal_bypass",
         "type": "keyword",
         "keywords": ["jailbreak", "DAN", "Do Anything Now", "unrestricted mode"],
-        "risk": 95,
+        "risk": 98,
         "description": "Explicit jailbreak terminology"
     },
     
