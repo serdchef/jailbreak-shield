@@ -17,7 +17,7 @@ class SemanticAnalyzer:
     
     def __init__(self, api_key: str):
         self.client = Anthropic(api_key=api_key)
-        self.model = "claude-3-5-haiku-20241022"
+        self.model = "claude-3-5-sonnet-20241022"
     
     def analyze(self, prompt: str, layer1_result: Dict) -> Dict:
         """
