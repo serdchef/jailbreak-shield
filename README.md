@@ -154,7 +154,7 @@ Tested on 86+ real jailbreak examples (updated 2024):
 ## 🎮 Try the Demo
 
 ### 🌐 Live Demo
-**Test online:** https://jailbreak-shield.vercel.app
+**Test online:** https://jailbreak-shield-jp6kuvqpbdkwtjgdcsqj3v.streamlit.app
 
 ### 📱 Run Locally
 ```bash
