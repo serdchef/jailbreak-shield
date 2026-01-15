@@ -18,7 +18,7 @@ ATTACK_PATTERNS = [
         "name": "Ignore Instructions",
         "category": "role_confusion",
         "type": "keyword",
-        "keywords": ["ignore previous", "forget everything", "disregard above"],
+        "keywords": ["ignore previous", "ignore all previous", "forget everything", "disregard above", "disregard", "forget", "ignore all", "ignore instructions"],
         "risk": 90,
         "description": "Tries to make AI ignore system instructions"
     },
