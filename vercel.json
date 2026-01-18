@@ -1,23 +1,18 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "web/package.json",
-      "use": "@vercel/next"
+  "framework": "nextjs",
+  "installCommand": "cd web && npm install",
+  "buildCommand": "cd web && npm run build",
+  "outputDirectory": "web/.next",
+  "functions": {
+    "api/index.py": {
+      "runtime": "@vercel/python@3.0.0"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/web/$1"
+      "source": "/api/:path*",
+      "destination": "/api/index.py"
     }
   ]
 }
