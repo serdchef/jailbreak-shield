@@ -253,3 +253,33 @@ class JailbreakShield:
     def _generate_explanation(self, safe: bool, attack_type: str, layer: str) -> str:
         if safe: return "Prompt analysis passed. No threats detected."
         return f"Blocked by {layer.upper()} Layer. Detected: {attack_type}."
+
+    def get_stats(self) -> Dict:
+        """
+        Returns current shield statistics and metrics.
+        
+        Returns:
+            Dict containing layer status, cache stats, and performance metrics.
+        """
+        stats = {
+            "version": "3.0.0",
+            "layers": {
+                "L1_REFLEX": {"enabled": True, "status": "active"},
+                "L2_SENTRY": {"enabled": self.layer2_enabled, "status": "active" if self.layer2_enabled else "disabled"},
+                "L3_ORACLE": {"enabled": self.layer3_enabled, "status": "active" if self.layer3_enabled else "disabled"},
+                "L4_KARMA": {"enabled": self.layer4_enabled, "status": "active" if self.layer4_enabled else "disabled"},
+            },
+            "cache": {
+                "enabled": self.cache_enabled,
+                "size": self.cache.size if self.cache else 0,
+                "max_size": self.cache.maxsize if self.cache else 0,
+            },
+            "rate_limiter": {
+                "enabled": self.rate_limit_enabled,
+            },
+        }
+        
+        if self.metrics_enabled and self.metrics:
+            stats["metrics"] = self.metrics.get_summary()
+        
+        return stats

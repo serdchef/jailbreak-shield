@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jailbreak-shield"
+version = "3.0.0"
+description = "Enterprise-grade prompt injection defense for LLMs"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Ali Serdar Çarlı", email = "a.serdcarl@gmail.com"}
+]
+keywords = ["llm", "security", "prompt-injection", "jailbreak", "ai-safety"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.39.0",
+    "requests>=2.31.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "bandit>=1.7.0",
+]
+api = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+]
+demo = [
+    "streamlit>=1.29.0",
+    "plotly>=5.18.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/serdchef/jailbreak-shield"
+Documentation = "https://shield-lime.vercel.app"
+Repository = "https://github.com/serdchef/jailbreak-shield"
+Issues = "https://github.com/serdchef/jailbreak-shield/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 120
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+
+[tool.coverage.run]
+source = ["jailbreak_shield"]
+omit = ["tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+]

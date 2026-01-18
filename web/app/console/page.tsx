@@ -48,7 +48,7 @@ export default function Console() {
     };
 
     return (
-        <div className="min-h-screen p-8 max-w-7xl mx-auto space-y-8 pb-20">
+        <div className="min-h-screen p-4 md:p-8 max-w-7xl mx-auto space-y-6 md:space-y-8 pb-20 overflow-x-hidden">
             {/* 1️⃣ Context Header */}
             <header className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -63,15 +63,15 @@ export default function Console() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-2 md:gap-4 flex-wrap">
                         {/* 6️⃣ Enterprise Signals */}
                         <div className="text-right font-mono text-xs text-aegis-text-muted hidden md:block border-r border-white/10 pr-4">
                             <div>ENV: PRODUCTION</div>
                             <div>BUILD: 2026.01.18</div>
                         </div>
                         <StatusBadge label="SYSTEM" status="ONLINE" color="safe" />
-                        <StatusBadge label="L1 REFLEX" status="ACTIVE" color="safe" />
-                        <StatusBadge label="L2 SENTRY" status="ARMED" color="primary" />
+                        <StatusBadge label="L1" status="ACTIVE" color="safe" className="hidden sm:flex" />
+                        <StatusBadge label="L2" status="ARMED" color="primary" className="hidden sm:flex" />
                     </div>
                 </div>
             </header>
@@ -243,7 +243,7 @@ function StatusRow({ label, value, active }: { label: string, value: string, act
     )
 }
 
-function StatusBadge({ label, status, color }: { label: string, status: string, color: "safe" | "danger" | "primary" }) {
+function StatusBadge({ label, status, color, className }: { label: string, status: string, color: "safe" | "danger" | "primary", className?: string }) {
     const colors = {
         safe: "bg-aegis-safe/10 text-aegis-safe border-aegis-safe/20",
         danger: "bg-aegis-danger/10 text-aegis-danger border-aegis-danger/20",
@@ -251,24 +251,33 @@ function StatusBadge({ label, status, color }: { label: string, status: string, 
     }[color];
 
     return (
-        <div className={cn("px-3 py-1 rounded border text-xs font-bold font-mono flex items-center gap-2", colors)}>
-            <span className={cn("w-2 h-2 rounded-full animate-pulse", color === "safe" ? "bg-aegis-safe" : color === "danger" ? "bg-aegis-danger" : "bg-aegis-primary")} />
+        <div className={cn("px-2 md:px-3 py-1 rounded border text-xs font-bold font-mono flex items-center gap-1.5 transition-all hover:scale-105", colors, className)}>
+            <span className={cn("w-1.5 h-1.5 md:w-2 md:h-2 rounded-full animate-pulse", color === "safe" ? "bg-aegis-safe" : color === "danger" ? "bg-aegis-danger" : "bg-aegis-primary")} />
             {label}: {status}
         </div>
     );
 }
 
-function StatCard({ title, value, change, icon: Icon }: any) {
+function StatCard({ title, value, change, icon: Icon, loading }: any) {
     return (
-        <div className="glass-panel p-6">
+        <div className="glass-panel p-6 transition-all hover:border-aegis-primary/30 hover:shadow-lg hover:shadow-aegis-primary/5">
             <div className="flex items-center justify-between mb-2">
                 <h3 className="text-xs font-semibold text-aegis-text-muted tracking-wider">{title}</h3>
                 <Icon className="w-4 h-4 text-aegis-primary" />
             </div>
-            <div className="text-3xl font-bold font-mono">{value}</div>
-            <div className={cn("text-xs font-mono mt-1", change.includes("+") ? "text-aegis-danger" : "text-aegis-safe")}>
+            {loading ? (
+                <div className="h-9 w-24 bg-white/5 rounded animate-pulse" />
+            ) : (
+                <div className="text-3xl font-bold font-mono">{value}</div>
+            )}
+            <div className={cn("text-xs font-mono mt-1", change?.includes("+") ? "text-aegis-danger" : "text-aegis-safe")}>
                 {change} from last hour
             </div>
         </div>
     );
+}
+
+// Skeleton Loading Component
+function Skeleton({ className }: { className?: string }) {
+    return <div className={cn("bg-white/5 rounded animate-pulse", className)} />;
 }

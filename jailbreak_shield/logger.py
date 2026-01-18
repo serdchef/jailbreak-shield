@@ -34,6 +34,38 @@ class SecurityEvent:
         return json.dumps(self.to_dict())
 
 
+import re
+
+# PII Patterns for redaction
+PII_PATTERNS = {
+    "email": re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'),
+    "ip_address": re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b'),
+    "credit_card": re.compile(r'\b(?:\d{4}[- ]?){3}\d{4}\b'),
+    "api_key": re.compile(r'\b(sk-[a-zA-Z0-9]{20,}|api[_-]?key[=:]\s*["\']?[a-zA-Z0-9]{16,})', re.IGNORECASE),
+    "phone": re.compile(r'\b(?:\+?1[-.]?)?\s*\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}\b'),
+}
+
+
+def redact_pii(text: str) -> str:
+    """
+    Redact personally identifiable information from text.
+    
+    Args:
+        text: Input string potentially containing PII.
+        
+    Returns:
+        String with PII replaced by [REDACTED_TYPE] placeholders.
+    """
+    if not text:
+        return text
+    
+    result = text
+    for pii_type, pattern in PII_PATTERNS.items():
+        result = pattern.sub(f"[REDACTED_{pii_type.upper()}]", result)
+    
+    return result
+
+
 class JSONFormatter(logging.Formatter):
     """JSON formatter for structured logging"""
     
