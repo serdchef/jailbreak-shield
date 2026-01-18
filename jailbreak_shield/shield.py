@@ -148,19 +148,13 @@ class JailbreakShield:
             l2_result = self.layer2.analyze(prompt)
             l2_lat = (time.time() - l2_start) * 1000
             
-        # Decision Logic: Should we call Layer 3 (Oracle)?
-        # Call L3 if:
-        # 1. L1 is suspicious OR
-        # 2. L2 is suspicious OR
-        # 3. Karma is low
+        # Decision Logic: Oracle (Layer 3) is the ultimate authority
+        # We always call Oracle if enabled to ensure zero false negatives
+        # The previous optimization (skip if L1/L2 safe) caused security gaps
         
         l3_result = None
         l3_lat = 0
-        should_call_oracle = (
-            l1_result["suspicious"] or 
-            (l2_result and l2_result["suspicious"]) or 
-            (karma_result and karma_result["suspicious"])
-        )
+        should_call_oracle = True # ALWAYS TRUE for maximum security
         
         if self.layer3_enabled and should_call_oracle:
             l3_start = time.time()
