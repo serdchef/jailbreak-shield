@@ -3,22 +3,25 @@ jailbreak_shield/layer3_oracle.py
 
 Layer 3: "Oracle"
 Semantic analysis using Claude Haiku (or Sonnet) for deep understanding.
-Called only when previous layers (Reflex, Sentry, Karma) are suspicious or inconclusive.
+Uses direct HTTP calls instead of anthropic SDK to reduce bundle size.
 """
 
 from typing import Dict, Any
 import json
-from anthropic import Anthropic
+import httpx
 
 
 class SemanticAnalyzer:
     """
     Uses Claude Haiku to understand semantic intent.
     Now context-aware of Layer 1 (Reflex), Layer 2 (Sentry), and Layer 4 (Karma).
+    Uses direct HTTP calls to Anthropic API (no SDK).
     """
     
+    ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
+    
     def __init__(self, api_key: str):
-        self.client = Anthropic(api_key=api_key)
+        self.api_key = api_key
         self.model = "claude-3-haiku-20240307"
     
     def analyze(self, prompt: str, context: Dict[str, Any]) -> Dict:
@@ -85,16 +88,31 @@ JSON Output Format:
 }}"""
 
         try:
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=500,
-                temperature=0.0,
-                system=system_prompt,
-                messages=[{"role": "user", "content": user_message}]
-            )
+            # Direct HTTP call to Anthropic API
+            headers = {
+                "Content-Type": "application/json",
+                "x-api-key": self.api_key,
+                "anthropic-version": "2023-06-01"
+            }
             
-            # Parse JSON response
-            result_text = response.content[0].text.strip()
+            payload = {
+                "model": self.model,
+                "max_tokens": 500,
+                "temperature": 0.0,
+                "system": system_prompt,
+                "messages": [{"role": "user", "content": user_message}]
+            }
+            
+            with httpx.Client(timeout=30.0) as client:
+                response = client.post(
+                    self.ANTHROPIC_API_URL,
+                    headers=headers,
+                    json=payload
+                )
+                response.raise_for_status()
+            
+            data = response.json()
+            result_text = data["content"][0]["text"].strip()
             
             # Clean markdown code blocks if present
             if result_text.startswith("```json"):
