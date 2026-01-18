@@ -120,10 +120,13 @@ JSON Output Format:
                 context.get("karma", {}).get("risk_score", 0)
             )
             
+            # Add 95% risk baseline for safety  
+            final_risk = max(previous_risk, 95)
+            
             return {
-                "malicious": previous_risk > 50,
-                "risk_score": previous_risk,
+                "malicious": True,  # Fail-safe: block on error
+                "risk_score": final_risk,
                 "attack_type": "analysis_error",
-                "reasoning": f"Oracle analysis failed: {str(e)}. Fallback to previous layers.",
+                "reasoning": f"Oracle analysis failed: {type(e).__name__}: {str(e)[:200]}",
                 "confidence": 0.5
             }
