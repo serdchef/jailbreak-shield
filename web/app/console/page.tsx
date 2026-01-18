@@ -101,6 +101,12 @@ export default function Console() {
                                 <textarea
                                     value={prompt}
                                     onChange={(e) => setPrompt(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" && !e.shiftKey) {
+                                            e.preventDefault();
+                                            handleAnalyze();
+                                        }
+                                    }}
                                     placeholder="// Enter prompt to simulate attack..."
                                     className="w-full h-48 bg-black/40 border border-aegis-border rounded-lg p-4 font-mono text-sm resize-none focus:outline-none focus:border-aegis-primary focus:ring-1 focus:ring-aegis-primary transition-all text-aegis-text"
                                 />
