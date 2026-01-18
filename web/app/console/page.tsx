@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Shield, Activity, Zap, Lock, AlertTriangle, Terminal, ChevronRight, Server, CheckCircle2, Globe, Cpu } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export default function Console() {
     const [prompt, setPrompt] = useState("");
