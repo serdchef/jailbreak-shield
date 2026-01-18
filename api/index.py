@@ -69,6 +69,19 @@ async def root():
 async def health():
     return {"status": "healthy", "engine": "ready"}
 
+@app.get("/api/v1/debug")
+async def debug():
+    """Debug endpoint to verify API key configuration (safe - doesn't expose key)."""
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    s = get_shield()
+    return {
+        "api_key_present": bool(api_key),
+        "api_key_length": len(api_key) if api_key else 0,
+        "api_key_prefix": api_key[:8] + "..." if api_key and len(api_key) > 8 else "N/A",
+        "layer3_enabled": s.layer3_enabled,
+        "layer3_initialized": s.layer3 is not None,
+    }
+
 @app.post("/api/v1/analyze")
 async def analyze(request: AnalysisRequest):
     s = get_shield()
