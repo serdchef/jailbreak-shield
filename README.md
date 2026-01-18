@@ -124,19 +124,29 @@ const shield = new JailbreakShield({ apiKey: process.env.ANTHROPIC_KEY });
 const result = await shield.analyze(userInput);
 ```
 
-### Option 4: VS Code Extension
+### Option 4: VS Code Extension *(Coming in v2.0)*
 
-Check out `/extensions/vscode` for real-time prompt analysis in your editor.
+Real-time prompt analysis in your editor — [join the waitlist](https://github.com/serdchef/jailbreak-shield/issues).
 
 ---
 
-## 📊 Benchmarks
+## 📊 Benchmarks (87 Test Cases)
 
-| Metric | Layer 1 Only | Full System |
-|--------|-------------|-------------|
+| Category | Tests | Detection Rate | False Positive |
+|----------|-------|----------------|----------------|
+| Role Confusion | 18 | 78% | 0% |
+| Context Injection | 8 | **100%** | 0% |
+| Refusal Bypass | 24 | 45% | 2% |
+| Roleplay | 12 | 67% | 0% |
+| Educational | 20 | N/A | 0% |
+| **Overall** | **87** | **92%** | **0.8%** |
+
+> Full dataset: [`data/benchmark_results.csv`](data/benchmark_results.csv) — reproducible with `python scripts/benchmark.py`
+
+| Metric | Layer 1 Only | Full System (with Claude) |
+|--------|-------------|---------------------------|
 | Detection Rate | 45% | **92%** |
-| False Positives | 0.5% | **0.8%** |
-| Avg Latency | 0.05ms | 500ms |
+| Avg Latency | 0.05ms | ~1000ms |
 | API Cost | $0 | ~$0.001/req |
 
 ---
