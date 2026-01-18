@@ -280,6 +280,6 @@ class JailbreakShield:
         }
         
         if self.metrics_enabled and self.metrics:
-            stats["metrics"] = self.metrics.get_summary()
+            stats["metrics"] = self.metrics.get_stats()
         
         return stats
