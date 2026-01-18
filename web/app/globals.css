@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-aegis-bg: #050505;
+  --color-aegis-panel: #121214;
+  --color-aegis-panel-hover: #1A1A1E;
+  --color-aegis-border: #27272A;
+  --color-aegis-border-hover: #3F3F46;
+  
+  --color-aegis-primary: #3B82F6;
+  --color-aegis-primary-glow: rgba(59, 130, 246, 0.5);
+  
+  --color-aegis-danger: #EF4444;
+  --color-aegis-danger-glow: rgba(239, 68, 68, 0.5);
+  
+  --color-aegis-safe: #10B981;
+  --color-aegis-safe-glow: rgba(16, 185, 129, 0.5);
+
+  --color-aegis-text: #EDEDED;
+  --color-aegis-text-muted: #A1A1AA;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-matrix-fade: matrix-fade 2s linear infinite;
+
+  @keyframes matrix-fade {
+    0% { opacity: 0; transform: translateY(-20px); }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(20px); }
+  }
+}
+
+:root {
+  --background: var(--color-aegis-bg);
+  --foreground: var(--color-aegis-text);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  @apply bg-aegis-panel/80 backdrop-blur-md border border-aegis-border rounded-xl;
+}
+
+.glass-panel:hover {
+  @apply border-aegis-border-hover bg-aegis-panel/90 transition-all duration-300;
+}
+
+.neon-border-primary {
+  box-shadow: 0 0 10px var(--color-aegis-primary-glow);
+  border-color: var(--color-aegis-primary);
+}
+
+.neon-border-danger {
+  box-shadow: 0 0 15px var(--color-aegis-danger-glow);
+  border-color: var(--color-aegis-danger);
+}
+
+.neon-text-safe {
+  text-shadow: 0 0 10px var(--color-aegis-safe-glow);
+  @apply text-aegis-safe;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

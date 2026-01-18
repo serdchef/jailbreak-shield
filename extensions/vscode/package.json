@@ -1,0 +1,27 @@
+{
+    "name": "aegis-vscode",
+    "displayName": "Jailbreak Shield Aegis",
+    "description": "Real-time prompt injection detection for VS Code.",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Linters",
+        "Security"
+    ],
+    "activationEvents": [
+        "onLanguage:plaintext",
+        "onLanguage:python",
+        "onLanguage:javascript"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "aegis.checkPrompt",
+                "title": "Aegis: Check Prompt for Safety"
+            }
+        ]
+    }
+}
