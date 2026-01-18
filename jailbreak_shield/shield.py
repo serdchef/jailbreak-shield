@@ -271,7 +271,7 @@ class JailbreakShield:
             },
             "cache": {
                 "enabled": self.cache_enabled,
-                "size": self.cache.size if self.cache else 0,
+                "size": self.cache.stats()["size"] if self.cache else 0,
                 "max_size": self.cache.maxsize if self.cache else 0,
             },
             "rate_limiter": {
