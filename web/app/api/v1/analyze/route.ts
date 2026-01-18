@@ -18,6 +18,12 @@ const MALICIOUS_PATTERNS = [
     /how\s+to\s+(make|create|build)\s+a?\s*(bomb|explosive|weapon)/i,
     /hack(ing)?\s+(into|a|an)/i,
     /steal\s+(password|credit\s+card|identity)/i,
+    // Turkish Patterns
+    /(bomba|patlayıcı|silah|tüfek)\s+(yapım|üretim|nasıl|yapılır)/i,
+    /(nasıl|nereden)\s+(bomba|silah|patlayıcı)\s+(bulurum|yaparım|alırım)/i,
+    /(kredi\s+kartı|şifre|kimlik)\s+(çalma|kopyalama|hack)/i,
+    /(sistemi|siteyi|hesabı)\s+(hackle|ele\s+geçir|patlat)/i,
+    /önceki\s+(talimatları|komutları)\s+(unut|görmezden\s+gel)/i,
 ];
 
 function analyzeLayer1(prompt: string): { suspicious: boolean; risk_score: number; matched: string[] } {
